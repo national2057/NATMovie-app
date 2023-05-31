@@ -1,13 +1,15 @@
 import React from 'react'
+import { useGetMovieByPageQuery } from '../features/movieApi'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetMovieByCategoryQuery } from '../features/movieApi'
 
-const MovieCategory = () => {
+const MoviePage = () => {
 
   const nav = useNavigate()
-  const { category } = useParams()
-  const { isError, isLoading, error, data } = useGetMovieByCategoryQuery(category)
-
+  const { category, page } = useParams()
+  const { isError, isLoading, data } = useGetMovieByPageQuery({
+    category,
+    page,
+  })
   if (isLoading) {
     return <div>
       <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4jyai6ec.json" background="transparent" speed="1" loop autoplay></lottie-player>
@@ -39,4 +41,5 @@ const MovieCategory = () => {
   )
 }
 
-export default MovieCategory
+
+export default MoviePage
